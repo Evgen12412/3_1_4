@@ -9,7 +9,14 @@
 </head>
 <body>
 <div class="container-xx">
-    <div class="" th:insert="blockPage/header::nav"></div>
+    <nav class="navbar navbar-light bg-dark"  th:each="user: ${getUser}">
+    <span   th:text="${user.username}" class="cl-header"></span>
+        <span class="navbar-brand cl-header"
+              th:text="'With roles: '+${user.roles}">
+        </span>
+  <a href="/logout"><button type="button" class="btn btn-primary mr">Выйти</button></a>
+
+</nav>
 
     <div class="containers f">
 
@@ -20,7 +27,7 @@
         </div>
 
 
-        <div>
+        <div class="user-info">
             <h4 class="title mt-3">User info page</h4>
              <nav class="navbar bg-dark sub-title mt-5 ">
             <div class="container-fluid ">
@@ -31,15 +38,12 @@
                 <thead>
                 <th>ID</th>
 
-                <th>UserName</th>
+                <th>Email</th>
 
                 <th>SurName</th>
 
-                <th>Password</th>
-
                 <th>Age</th>
 
-                <th>Email</th>
 
                 <th>Roles</th>
 
@@ -49,9 +53,7 @@
                     <td th:text="${user.getId()}">id</td>
                     <td th:text="${user.getName()}">name</td>
                     <td th:text="${user.getSurname()}">surname</td>
-                    <td th:text="${user.getPassword()}">password</td>
                     <td th:text="${user.getAge()}">age</td>
-                    <td th:text="${user.getEmail()}">email</td>
                     <td th:text="${user.getAuthorities()}"></td>
 
                 </tr>

@@ -2,7 +2,7 @@
 
 
     <div class="modal fade myForm" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+        th:id="${'#editModal' + user.id}" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -12,7 +12,7 @@
                 <div class="field-table">
                     <div class="modal-body ">
 
-                        <form th:method="PATCH" th:action="@{/editUser/{id}}">
+                        <form th:method="PATCH" th:action="@{/editUser/{id}(id=${user.getId()})}">
 
                             <label class="label-modal" for="user-name"> Name: </label>
                             <input type="text" id="user-name" th:name="name" class="input-modal">

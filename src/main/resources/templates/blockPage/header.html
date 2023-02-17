@@ -1,6 +1,9 @@
 <div th:fragment="nav">
     <nav class="navbar bg-dark" data-bs-theme="dark">
     <span  th:each="user: ${getUser}" th:text="${user.getName()}" class="cl-header"></span>
+        <span class="navbar-brand mb-0 h1" style="color:white"
+              th:text="'With roles: '+${user.getRoles}">
+        </span>
   <a href="/logout"><button type="button" class="btn btn-primary mr">Выйти</button></a>
 
 </nav>

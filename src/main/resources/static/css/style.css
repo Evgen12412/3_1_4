@@ -10,8 +10,10 @@ body {
     border-bottom: none;
 }
 
-.containers {
-    max-width: 70%;
+
+
+.user-info {
+    width: 80%;
 }
 
 .container, .container-lg, .container-md, .container-sm, .container-xl {

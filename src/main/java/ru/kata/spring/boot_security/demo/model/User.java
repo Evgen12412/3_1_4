@@ -19,8 +19,6 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "username")
-    private String username;
 
     @Column(name = "surname")
     private String surname;
@@ -28,8 +26,8 @@ public class User implements UserDetails {
     private String password;
    @Column(name = "age")
    private int age;
-   @Column(name = "email")
-   private String email;
+   @Column(name = "email", unique = true)
+   private String username;
 
      @ManyToMany(fetch = FetchType.EAGER)
 //    @ManyToMany
@@ -42,11 +40,11 @@ public class User implements UserDetails {
     }
 
     public User(String username, String surname, String password, int age, String email, Set<Role> roles) {
-        this.username = username;
+
         this.surname = surname;
         this.password = password;
         this.age = age;
-        this.email = email;
+        this.username = username;
         this.roles = roles;
     }
 
@@ -139,13 +137,7 @@ public class User implements UserDetails {
         this.age = age;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     @Override
     public boolean equals(Object o) {

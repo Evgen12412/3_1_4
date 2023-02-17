@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
@@ -34,7 +35,7 @@ public class AdminController {
         model.addAttribute("principal", user.get());
         model.addAttribute("allUsers", userService.allUsers());
         model.addAttribute("allRoles", allRoles);
-        return "admin";
+        return "index";
     }
 
 
@@ -51,31 +52,22 @@ public class AdminController {
         return "user";
     }
 
-    @GetMapping("/addNewUser")
-    public String addNewUser(@ModelAttribute("user") User user,Model model) {
-        List<Role> allRoles = roleService.allRoles();
-        model.addAttribute("allRoles", allRoles);
-        return "admin";
-
-    }
-
     @PostMapping("/addNewUser")
     public String createUser(@ModelAttribute("user") User user) {
+        if (userService.checkLogin(user)) {
+            userService.saveUser(user);
+            return "redirect:/admin";
+        } else {
+            return "/Error";
+        }
 
-        userService.saveUser(user);
-        return "redirect:/admin";
-    }
-    @GetMapping("/editUser/{id}")
-    public String editUser(@PathVariable("id") Long id, Model model) {
-        List<Role> allRoles = roleService.allRoles();
-        model.addAttribute("allRoles", allRoles);
-        model.addAttribute("user", userService.findUserById(id));
 
-        return "user-edit";
     }
+
      @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
-        userService.update(id, user);
+    public String update(@ModelAttribute("user") User user) {
+
+         userService.saveUser(user);
         return "redirect:/admin";
     }
 }
